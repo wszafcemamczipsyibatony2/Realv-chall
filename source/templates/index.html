@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+		<title>Ping checker</title>
+		<style type="text/css">
+			body{
+			    margin: 10px 5px 5px 15px;
+				background-color: #d9dad8;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="{{ url_for('static', filename='service.png') }}"/>
+		<h2>Here is your private infrastructure service</h2>
+		<p>
+			You can check if some artists are in database! Definitely check 'Rick Astley', oh also we have some spare flags in it but I don't think i will share them :)
+		</p>
+		<form id="demo" class="pure-form" action="/submit" method="post">
+			<textarea id="area" form="demo" name="code">Rick Astley</textarea><br>
+			<button style="border-radius: 5px;" type="submit" class="pure-button pure-button-primary">Submit</button>
+		</form>
+		<p><span id="result"></span></p>
+
+		<script>
+		var form = document.getElementById("demo");
+		form.addEventListener("submit", function(e)  {
+			e.preventDefault();
+			var cod = document.getElementById("area").value;
+			fetch('/submit', {
+				method: "POST",
+				headers: {
+			      'Content-Type': 'text/plain;charset=UTF-8'
+			    },
+				body: cod
+			}).then(response => response.json()).then(data => {
+				var field = document.getElementById("result");
+				field.style.fontWeight = "bold";
+				if (data.error) {
+					field.style.color = "red";
+					field.textContent = "404 ERROR";
+				} else {
+					field.style.color = "Green";
+					field.textContent = "200 OK";
+				}
+			});
+		});
+		</script>
+	</body>
+</html>
