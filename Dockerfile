@@ -5,5 +5,5 @@ RUN mkdir /code
 RUN cp -a Realv-chall/source/* /code
 WORKDIR /code
 RUN pip install flask
-EXPOSE 5000
+EXPOSE 80
 CMD ["flask", "run", "--host", "0.0.0.0","--port", "80"]
