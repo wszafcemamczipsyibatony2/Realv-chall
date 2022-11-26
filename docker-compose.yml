@@ -1,9 +1,14 @@
-version: '3'
 services:
- web:
-  build: .
-  ports:
-   - 22225:5000
-  volumes:
-   - ./source/:/code/:ro
-  restart: always
+  web:
+    container_name: chall
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./source/:/code
+
+    ports:
+      - 80:80
+    environment:
+      - TEAM_LINK=a60b49ed246/2
+      - PYTHONUNBUFFERED=1
